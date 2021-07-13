@@ -15,7 +15,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "docker build Dockerfile /var/lib/jenkins/workspace/DevOps-COE-POC-Pipeline-Jobs/React-tour -t saikumar080319/react-tour:${DOCKER_TAG}" 
+              sh "docker build -f Dockerfile /var/lib/jenkins/workspace/DevOps-COE-POC-Pipeline-Jobs/React-tour -t saikumar080319/react-tour:${DOCKER_TAG}" 
           }
     
       }
