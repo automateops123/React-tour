@@ -7,7 +7,7 @@ pipeline {
       stages {
            stage ('Checkout SCM'){
              steps {
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://For_demo@bitbucket.org/For_demo/reactjs.git']]])
+          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/automateops123/ReactJs-tour.git']]])
              }
         
       }     
@@ -33,7 +33,7 @@ pipeline {
       stage("Deploy"){
           steps{ sshagent(['ssh_keys']) {
               sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.30.89 docker rm -f cont1 || true"
-             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.30.89 docker run -itd -p 80:80 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
+             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.30.89 docker run -itd -p 80:8080 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
              
            }
         }
