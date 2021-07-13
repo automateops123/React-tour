@@ -33,7 +33,7 @@ pipeline {
       stage("Deploy"){
           steps{ sshagent(['ssh_keys']) {
               sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker rm -f cont1 || true"
-             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker run -itd -p 80:8080 --name cont1 saikumar080319/react-tour:${DOCKER_TAG} ."
+             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker run -itd -p 80:80 --name cont1 saikumar080319/react-tour:${DOCKER_TAG} ."
              
            }
         }
