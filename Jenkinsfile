@@ -15,7 +15,7 @@ pipeline {
       stage("Build"){
           steps{
               sh "npm install"
-              sh "docker build -f Dockerfile /var/lib/jenkins/workspace/DevOps-COE-POC-Pipeline-Jobs/ReactJS -t saikumar080319/react:${DOCKER_TAG}" 
+              sh "docker build -f Dockerfile /var/lib/jenkins/workspace/DevOps-COE-POC-Pipeline-Jobs/ReactJs-tour-pipeline -t saikumar080319/react-tour:${DOCKER_TAG}" 
           }
     
       }
@@ -26,14 +26,14 @@ pipeline {
               sh "docker login -u saikumar080319 -p ${Dockercred} "
                }
               
-             sh "docker push saikumar080319/react:${DOCKER_TAG}"
+             sh "docker push saikumar080319/react-tour:${DOCKER_TAG}"
           }
       }
 
       stage("Deploy"){
           steps{ sshagent(['ssh_keys']) {
               sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker rm -f cont1 || true"
-             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker run -itd -p 80:80 --name cont1 saikumar080319/react:${DOCKER_TAG} ."
+             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.88 docker run -itd -p 80:80 --name cont1 saikumar080319/react-tour:${DOCKER_TAG} ."
              
            }
         }
